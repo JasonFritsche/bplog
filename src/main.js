@@ -1,11 +1,10 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import { store } from "./store/store";
+import store from "./store/store";
 import { initializeApp } from "firebase/app";
-import { VuesticPlugin } from "vuestic-ui";
-import "vuestic-ui/dist/vuestic-ui.css";
-import "@mdi/font/css/materialdesignicons.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,4 +19,4 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
-createApp(App).use(router).use(store).use(VuesticPlugin).mount("#app");
+createApp(App).use(router).use(store).mount("#app");

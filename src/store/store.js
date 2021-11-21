@@ -2,14 +2,14 @@
 import { createStore, Store } from "vuex";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-export const store = createStore({
-  state: {
-    user: null,
-    error: null,
+const store = createStore({
+  state() {
+    return {
+      user: null,
+      error: null,
+    };
   },
   mutations: {
-    LOGIN: (state, user) => (state.user = user),
-    LOGOUT: (state) => (state.user = null),
     SETUSER(state, payload) {
       state.user = payload;
     },
@@ -30,8 +30,16 @@ export const store = createStore({
           commit("SETERROR", error.message);
         });
     },
+    signout({ commit }) {
+      const auth = getAuth();
+      auth.signOut().then(() => {
+        commit("SETUSER", null);
+      });
+    },
   },
   getters: {
     getUser: (state) => state.user,
   },
 });
+
+export default store;

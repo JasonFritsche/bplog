@@ -29,7 +29,7 @@ onBeforeMount(() => {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css");
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

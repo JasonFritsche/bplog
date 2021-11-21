@@ -1,24 +1,68 @@
 <template>
-  <va-navbar>
-    <template #left>
-      <va-navbar-item>My BP Log</va-navbar-item>
-    </template>
-    <template #right>
-      <va-navbar-item>
-        <div v-if="user?.accessToken">Is logged in</div>
-        <div v-else>Is not logged in</div>
-      </va-navbar-item>
-    </template>
-  </va-navbar>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <i
+          class="bi-journal-bookmark"
+          style="font-size: 1.7rem; margin-right: 12px"
+        ></i>
+        <span>My BP Log</span>
+      </a>
+      <div class="d-flex align-items-center" v-if="user">
+        <div class="px-2">
+          {{ user?.displayName }}
+        </div>
+        <div>
+          <div class="dropdown">
+            <a
+              class="dropdown-toggle"
+              role="button"
+              id="dropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi-gear" style="font-size: 1.7rem"></i>
+            </a>
+
+            <ul
+              class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end"
+              aria-labelledby="dropdownMenuLink"
+            >
+              <li>
+                <a class="dropdown-item" @click="signout">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
 </template>
 
-<script setup>
+<script>
 import { useStore } from "vuex";
-import { ref, watchEffect } from "vue";
-const store = useStore();
-const user = ref(store.getters.getUser);
+import { computed } from "vue";
+export default {
+  setup(props) {
+    const store = useStore();
+    const user = computed(() => {
+      return store.state.user;
+    });
 
-watchEffect(() => {
-  console.log(user);
-});
+    const signout = () => {
+      store.dispatch("signout");
+    };
+
+    return {
+      user,
+      signout,
+    };
+  },
+};
 </script>
+
+<style scoped>
+.navbar {
+  height: 8vh;
+}
+</style>

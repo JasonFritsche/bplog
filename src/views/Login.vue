@@ -1,33 +1,35 @@
 <template>
-  <div class="row justify--center">
-    <div class="flex xs12 md10 lg5">
-      <va-card>
-        <va-card-title>My Blood Pressure Log</va-card-title>
-        <va-card-content>
-          <div class="text-block">
-            <span
-              >Login using one of the methods below. First time here? No
-              worries, get started by clicking one of the login options
-              below.</span
+  <div class="login-container container-fluid">
+    <div class="card-wrapper d-flex justify-content-center align-items-center">
+      <div class="card mb-2 shadow-lg" style="width: 22em">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">
+            Login using one of the methods below. First time here? No worries,
+            get started by clicking one of the login options below.
+          </h6>
+          <div class="d-grid gap-1">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              @click="loginWithGoogle"
             >
+              <i
+                class="bi-google"
+                style="font-size: 1.1rem; margin-right: 3px"
+              ></i>
+              Login With Google
+            </button>
+            <button type="button" class="btn btn-outline-primary">
+              <i
+                class="bi-twitter"
+                style="font-size: 1.1rem; margin-right: 3px"
+              ></i>
+              Login With Twitter
+            </button>
           </div>
-        </va-card-content>
-        <va-card-actions align="center" vertical>
-          <va-button
-            outline
-            :rounded="false"
-            class="mr-4"
-            @click="loginWithGoogle"
-          >
-            <va-icon class="mdi mdi-google pr-2"></va-icon>
-            Login with Google
-          </va-button>
-          <va-button outline :rounded="false" class="mr-4">
-            <va-icon class="mdi mdi-twitter pr-2"></va-icon>
-            Login with Twitter
-          </va-button>
-        </va-card-actions>
-      </va-card>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,3 +41,13 @@ const loginWithGoogle = () => {
   store.dispatch("googleSignInAction");
 };
 </script>
+
+<style scoped>
+.login-container {
+  height: 91vh;
+}
+
+.card-wrapper {
+  height: 90%;
+}
+</style>
