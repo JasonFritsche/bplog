@@ -1,6 +1,10 @@
 <template>
   <div class="row mb-lg-3">
-    <div class="col-sm-10 col-lg-6 mb-3">
+    <div class="col-sm-10 col-lg-3 mb-3">
+      <Calendar mode="date" iconClass="bi-calendar3" />
+    </div>
+
+    <div class="col-sm-10 col-lg-3 mb-3">
       <Calendar
         mode="time"
         iconClass="bi-clock-history"
@@ -15,7 +19,7 @@
         <input
           type="text"
           class="form-control"
-          v-model="bpform.inputHeartRate"
+          v-model="bpForm.inputHeartRate"
         />
       </div>
     </div>
@@ -28,7 +32,7 @@
         <input
           type="text"
           class="form-control"
-          v-model="bpform.inputSystolic"
+          v-model="bpForm.inputSystolic"
         />
       </div>
     </div>
@@ -41,7 +45,7 @@
         <input
           type="text"
           class="form-control"
-          v-model="bpform.inputDiastolic"
+          v-model="bpForm.inputDiastolic"
         />
       </div>
     </div>
@@ -53,7 +57,7 @@
         <textarea
           type="text"
           class="form-control"
-          v-model="bpform.inputNotes"
+          v-model="bpForm.inputNotes"
         />
       </div>
     </div>
@@ -63,7 +67,7 @@
       <button
         type="button"
         class="btn btn-outline-primary block"
-        @click="onBpFormSubmit"
+        @click="onbpFormSubmit"
       >
         Submit
       </button>
@@ -73,34 +77,53 @@
 
 <script>
 import Calendar from "./Calendar.vue";
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import { useStore } from "vuex";
+import useVuelidate from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
+
 export default {
   components: {
     Calendar,
   },
   setup() {
     const store = useStore();
-    const bpform = reactive({
+    const bpForm = reactive({
       inputHeartRate: null,
       inputSystolic: null,
       inputDiastolic: null,
       inputNotes: "",
     });
 
-    const onBpFormSubmit = () => {
-      console.log(bpform);
+    const formRules = {
+      inputHeartRate: { required },
+      inputSystolic: { required },
+      inputDiastolic: { required },
+    };
+
+    const v$ = useVuelidate(formRules, bpForm);
+
+    const onbpFormSubmit = async () => {
+      const valid = await v$.value.$validate();
+      console.log(valid);
+      if (!valid) {
+        alert("form has errors");
+      } else {
+        alert("form is good");
+      }
+      console.log(bpForm);
       const payload = {
-        ...bpform,
+        ...bpForm,
         time: "5:55",
       };
-      store.dispatch("addBloodPressureEntry", payload);
+      // store.dispatch("addBloodPressureEntry", payload);
     };
 
     const handleDatetimeChange = (event) => console.log(event);
     return {
-      bpform,
-      onBpFormSubmit,
+      bpForm,
+      v$,
+      onbpFormSubmit,
       handleDatetimeChange,
     };
   },

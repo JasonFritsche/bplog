@@ -6,11 +6,13 @@
       </div>
     </div>
     <div class="row mb-3">
-      <div class="col-sm-10 col-lg-12">
-        <Calendar mode="date" iconClass="bi-calendar3" />
+      <div class="col-12 col-md-8">
+        <div class="col-sm-10 col-lg-12">
+          <BloodPressureForm />
+        </div>
       </div>
+      <div class="col-12 col-md-4">side-panel stuff</div>
     </div>
-    <BloodPressureForm />
   </div>
 </template>
 
