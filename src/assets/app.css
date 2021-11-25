@@ -1,0 +1,24 @@
+@media screen and (max-width: 576px) {
+  .bp-form {
+    width: 90% !important;
+  }
+  .input-group-text {
+    width: 6.5em !important;
+  }
+}
+@media screen and (min-width: 577px) and (max-width: 768px) {
+  .bp-form {
+    width: 40em !important;
+  }
+  .input-group-text {
+    width: 6em !important;
+  }
+}
+@media screen and (min-width: 769px) {
+  .bp-form {
+    width: 30em !important;
+  }
+  .input-group-text {
+    width: 6.2em !important;
+  }
+}

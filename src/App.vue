@@ -17,7 +17,6 @@ onBeforeMount(() => {
   const auth = getAuth();
 
   onAuthStateChanged(auth, (user) => {
-    console.log(user);
     if (!user) {
       router.replace("/login");
     } else if (user) {
